@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirstController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ViewController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -84,3 +86,8 @@ Route::get('massDelete',[ItemController::class,'massDelete']);
 
 Route::get('delete/{id}',[ItemController::class,'delete']);
 
+Route::get('first-page',[ViewController::class,'index']);
+Route::get('second-page',[ViewController::class,'index2']);
+
+Route::get('list-items',[ViewController::class,'listItems']);
+Route::get('view-item/{id}',[ViewController::class,'viewItem'])->name('viewItemCustom');
