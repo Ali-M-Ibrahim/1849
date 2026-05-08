@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\DIController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InvokableController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirstController;
@@ -113,3 +115,19 @@ Route::get('page2',[PageController::class,'page2']);
 
 Route::get('index',[PageController::class,'index']);
 Route::get('blog',[PageController::class,'blog']);
+
+
+
+Route::get('before-di',[DIController::class,'index']);
+Route::get('after-di1',[DIController::class,'index2']);
+Route::get('after-di2',[DIController::class,'index3']);
+Route::get('after-di3',[DIController::class,'index4']);
+
+Route::get('upload-image',[ImageController::class,'index'])->name('uploadImage');
+Route::get('list-image',[ImageController::class,'list'])->name('listImage');
+
+Route::post('do-upload-image',[ImageController::class,'store1'])->name('do-upload-image');
+Route::post('do-upload-image2',[ImageController::class,'store2'])->name('do-upload-image2');
+Route::post('do-upload-image3',[ImageController::class,'store3'])->name('do-upload-image3');
+
+
