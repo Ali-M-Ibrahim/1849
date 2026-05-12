@@ -21,8 +21,9 @@
 </head>
 <body>
 
+@if(Auth::check())
 <h2>List Category   <a href="{{Route('category.create')}}">Create</a> </h2>
-
+@endif
 <table>
     <tr>
         <th>Name</th>

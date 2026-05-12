@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'custom-auth' => \App\Http\Middleware\checkAuth::class,
+            'check-admin'=>\App\Http\Middleware\checkAdmin::class,
+        ]);
         $middleware->validateCsrfTokens(except: [
             'post-route',
             'create4',

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\DIController;
 use App\Http\Controllers\ImageController;
@@ -107,7 +108,7 @@ Route::put('update-product/{id}',[ProductController::class,'update'])->name('upd
 Route::delete('delete-product/{id}',[ProductController::class,'delete'])->name('deleteProduct');
 Route::get('delete-product2/{id}',[ProductController::class,'delete'])->name('deleteProduct2');
 
-Route::resource('category',CategoryController::class);
+Route::resource('category',CategoryController::class)->middleware('custom-auth');
 Route::get('delete-category/{category}',[CategoryController::class,'destroy'])->name('category.delete');
 
 Route::get('page1',[PageController::class,'page1']);
@@ -123,11 +124,19 @@ Route::get('after-di1',[DIController::class,'index2']);
 Route::get('after-di2',[DIController::class,'index3']);
 Route::get('after-di3',[DIController::class,'index4']);
 
-Route::get('upload-image',[ImageController::class,'index'])->name('uploadImage');
-Route::get('list-image',[ImageController::class,'list'])->name('listImage');
 
-Route::post('do-upload-image',[ImageController::class,'store1'])->name('do-upload-image');
-Route::post('do-upload-image2',[ImageController::class,'store2'])->name('do-upload-image2');
-Route::post('do-upload-image3',[ImageController::class,'store3'])->name('do-upload-image3');
+Route::get('signup',[AuthController::class,'signup'])->name('signup');
+Route::post('register',[AuthController::class,'register'])->name('register');
+Route::get('login',[AuthController::class,'login'])->name('login');
+Route::post('do-login',[AuthController::class,'doLogin'])->name('do-login');
+Route::get('home',[AuthController::class,'home'])->name('home');
+Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
 
+Route::middleware(['check-admin'])->group(function () {
+    Route::get('upload-image',[ImageController::class,'index'])->name('uploadImage');
+    Route::get('list-image',[ImageController::class,'list'])->name('listImage');
+    Route::post('do-upload-image',[ImageController::class,'store1'])->name('do-upload-image');
+    Route::post('do-upload-image2',[ImageController::class,'store2'])->name('do-upload-image2');
+    Route::post('do-upload-image3',[ImageController::class,'store3'])->name('do-upload-image3');
+});
